@@ -18,17 +18,17 @@ namespace ReforgedEdenMKII
             PLAYFIELD_WARPGATES = new Dictionary<string, List<WarpGate>>
             {
                 {
-                    "Andromeda-Decay [Sun Left]",
+                    "Andromeda to Decay Warp Gate",
                     new List<WarpGate>()
                     {
-                        new WarpGate("Eden_BAO_ProgGate1", "Ancient Warp Gate", "Andromeda-Decay [Sun Left]", "Decay-Andromeda [Sun Right]")
+                        new WarpGate("Eden_BAO_ProgGate1", "Ancient Warp Gate", "Andromeda to Decay Warp Gate", "Decay to Andromeda Warp Gate")
                     }
                 },
                 {
-                    "Decay-Andromeda [Sun Right]",
+                    "Decay to Andromeda Warp Gate",
                     new List<WarpGate>()
                     {
-                        new WarpGate("Eden_BAO_ProgGate2", "Ancient Warp Gate", "Decay-Andromeda [Sun Right]", "Andromeda-Decay [Sun Left]")
+                        new WarpGate("Eden_BAO_ProgGate2", "Ancient Warp Gate", "Decay to Andromeda Warp Gate", "Andromeda to Decay Warp Gate")
                     }
                 }
             };
