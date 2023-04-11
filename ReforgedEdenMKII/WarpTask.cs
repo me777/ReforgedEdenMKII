@@ -11,6 +11,7 @@ namespace ReforgedEdenMKII
         internal static readonly ushort WARPTASK_PLAYER_CHANGEPF = 61001;
         internal static readonly ushort WARPTASK_ENTITY_CHANGEPF = 61002;
 
+        internal long Timestamp { get; set; }
         internal int EntityId { get; set; }
         internal bool IsPlayer { get; set; }
         internal string Playfield { get; set; }
@@ -19,20 +20,12 @@ namespace ReforgedEdenMKII
 
         internal void Warp(ModGameAPI api)
         {
-            if (IsPlayer)
-            {
-                api.Game_Request(
-                    CmdId.Request_Player_ChangePlayerfield,
-                    WARPTASK_PLAYER_CHANGEPF,
-                    new IdPlayfieldPositionRotation(EntityId, Playfield, Position, Rotation));
-            }
-            else
-            {
-                api.Game_Request(
-                    CmdId.Request_Entity_ChangePlayfield,
-                    WARPTASK_ENTITY_CHANGEPF,
-                    new IdPlayfieldPositionRotation(EntityId, Playfield, Position, Rotation));
-            }
+
+
+            api.Game_Request(
+                CmdId.Request_Player_ChangePlayerfield,
+                WARPTASK_PLAYER_CHANGEPF,
+                new IdPlayfieldPositionRotation(EntityId, Playfield, Position, Rotation));
         }
     }
 }
