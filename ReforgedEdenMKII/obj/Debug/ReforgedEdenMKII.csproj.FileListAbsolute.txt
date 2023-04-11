@@ -8,3 +8,4 @@ C:\Users\me777\source\repos\me777\ReforgedEdenMKII\ReforgedEdenMKII\bin\Debug\Mo
 C:\Users\me777\source\repos\me777\ReforgedEdenMKII\ReforgedEdenMKII\obj\Debug\ReforgedEdenMKII.csproj.CopyComplete
 C:\Users\me777\source\repos\me777\ReforgedEdenMKII\ReforgedEdenMKII\obj\Debug\ReforgedEdenMKII.dll
 C:\Users\me777\source\repos\me777\ReforgedEdenMKII\ReforgedEdenMKII\obj\Debug\ReforgedEdenMKII.pdb
+C:\Users\me777\source\repos\me777\ReforgedEdenMKII\ReforgedEdenMKII\bin\Debug\UnityEngine.CoreModule.dll
