@@ -2,4 +2,4 @@ Name: Reforged Eden Enhancements
 Description: Enhances the Reforged Eden Scenario
 Author: MKI
 Version: 0.1
-ModTargets: Dedi 
+ModTargets: PfServer,Dedi  
