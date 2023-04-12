@@ -2,7 +2,7 @@
 Empyrion Galactic Survival - Reforged Eden Scenario Enhancements
 
 * Credit  
-It's a hackjob of the original mod, and I took out a lot of stuff...  
+It's a hackjob of the original mod https://github.com/heyitsmk/ReforgedEdenMKI, and I took out a lot of stuff...  
 Also I stole code from ASTICs EmpyrionScripting https://github.com/GitHub-TC/EmpyrionScripting  
 
 __*DISCLAIMER*__ This mod uses API1 and therefore can only run on dedicated servers. If you want to use this mod for a single player game you will need to host your own local dedicated server.
