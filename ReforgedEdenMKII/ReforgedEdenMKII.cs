@@ -23,7 +23,6 @@ namespace ReforgedEdenMKII
         public void Init(IModApi modApi)
         {
             GameAPI = modApi;
-            GameAPI.Log("test - Initialized");
             if (GameAPI.Application.Mode == ApplicationMode.DedicatedServer)
             {
                 MyDediHelper = new DediHelper(GameAPI);
@@ -32,6 +31,7 @@ namespace ReforgedEdenMKII
             GameAPI.Application.Update += Application_Update;
             GameAPI.Application.OnPlayfieldLoaded += Application_OnPlayfieldLoaded;
             GameAPI.Application.OnPlayfieldUnloading += Application_OnPlayfieldUnLoaded;
+            GameAPI.Log("ReforgedEdenMKII v1 - Initialized");
         }
         private void Application_Update()
         {
@@ -53,27 +53,38 @@ namespace ReforgedEdenMKII
         private void Check(IPlayfield P)
         {
             Vector3 Pos = new Vector3();
+#if DEBUG
             GameAPI.Log($"Check {P.Name}");
+#endif
             var WG = P.Entities.Values.Where(E => E.IsPoi && E.Name == "Ancient Warp Gate").Single();
+#if DEBUG
             GameAPI.Log($"WarpGate found at {WG.Position}");
+#endif
             Pos = WG.Position;
             foreach (IEntity E in P.Entities.Values.Where(e => e.Type == EntityType.CV && !e.IsPoi))
             {
                 int pilotid = E.Structure.Pilot.Id;
                 if (pilotid != 0)
                 {
+#if DEBUG
                     GameAPI.Log($"Entity {E.Name} E.s");
+#endif
                     //GameAPI.Log($"WarpGate {WarpGateA.Position}");
                     float distance = (E.Position - WG.Position).magnitude;
-
+#if DEBUG
                     GameAPI.Log($"dist {distance}");
+#endif
                     if (distance < 100)
                     {
+#if DEBUG
                         GameAPI.Log($"distance of {E.Name} < 100");
+#endif
                         if (E.Structure.Pilot != null)
                         {
                             var pid = E.Structure.Pilot.Id;
-                            //GameAPI.Log($"delay {delay[E.Structure.Pilot.Id]}");
+#if DEBUG
+                            GameAPI.Log($"delay {delay[E.Structure.Pilot.Id]}");
+#endif
                             long now = DateTime.Now.Ticks;
                             long value;
                             if (!delay.TryGetValue(pid, out value))
@@ -88,14 +99,20 @@ namespace ReforgedEdenMKII
 
                                 if (WG.Structure.IsPowered)
                                 {
+#if DEBUG
                                     GameAPI.Log($"WarpGate in {P.Name} powered");
+#endif
                                     byte[] data = Encoding.ASCII.GetBytes(E.Structure.Pilot.Id.ToString());
                                     var r = GameAPI.Network.SendToDedicatedServer("ReforgedEdenMKII", data, P.Name);
+#if DEBUG
                                     GameAPI.Log($"GameAPI.Network.SendToDedicatedServer result {r} {data.Length}");
+#endif
                                 }
                                 else
                                 {
+#if DEBUG
                                     GameAPI.Log($"WarpGate in {P.Name} not powered");
+#endif
                                 }
                             }
                         }
@@ -107,7 +124,9 @@ namespace ReforgedEdenMKII
         }
         private void Application_OnPlayfieldLoaded(IPlayfield playfield)
         {
+#if DEBUG
             GameAPI.Log($"Application_OnPlayfieldLoaded.begin {playfield.Name}");
+#endif
             if (playfield.Name == "Andromeda to Decay Warp Gate")
             {
                 PFA2D = playfield;
@@ -120,7 +139,9 @@ namespace ReforgedEdenMKII
         }
         private void Application_OnPlayfieldUnLoaded(IPlayfield playfield)
         {
+#if DEBUG
             GameAPI.Log($"Application_OnPlayfieldLoaded.begin {playfield.Name}");
+#endif
             if (playfield.Name == "Andromeda to Decay Warp Gate")
             {
                 PFA2D = null;
@@ -164,7 +185,9 @@ namespace ReforgedEdenMKII
             }
             private void Application_OnPlayfieldLoadedDedi(IPlayfield playfield)
             {
+#if DEBUG
                 GameAPI.Log($"Application_OnPlayfieldLoaded.begin {playfield.Name}");
+#endif
                 if (playfield.Name == "Andromeda to Decay Warp Gate")
                 {
                     PFA2D = playfield;
@@ -176,7 +199,9 @@ namespace ReforgedEdenMKII
             }
             private void Application_OnPlayfieldUnLoadedDedi(IPlayfield playfield)
             {
+#if DEBUG
                 GameAPI.Log($"Application_OnPlayfieldLoaded.begin {playfield.Name}");
+#endif
                 if (playfield.Name == "Andromeda to Decay Warp Gate")
                 {
                     PFA2D = null;
@@ -201,7 +226,9 @@ namespace ReforgedEdenMKII
 
                 try
                 {
+#if DEBUG
                     ModApi.Log($"CommandCallback {sender} {playfieldName}");
+#endif
 
                     if (sender != "ReforgedEdenMKII") return;
 
@@ -231,9 +258,9 @@ namespace ReforgedEdenMKII
                             },
                             Timestamp = DateTime.Now.Ticks
                         });
-
-                        ModApi.Log($"ReforgedEdenMKII:Teleport call from {playfieldName} for playerid {result}"); ;
-
+#if DEBUG
+                        ModApi.Log($"ReforgedEdenMKII:Teleport call from {playfieldName} for playerid {result}");
+#endif
                     }
                 }
                 catch (Exception error)
@@ -249,7 +276,7 @@ namespace ReforgedEdenMKII
                     ModApi.Application.SendChatMessage(new MessageData()
                     {
                         RecipientEntityId = chatMsgData.SenderEntityId,
-                        Text = "Reforged Eden WarpGate - v0.1",
+                        Text = "Reforged Eden WarpGate - v1",
                         Channel = Eleon.MsgChannel.SinglePlayer,
                         SenderType = Eleon.SenderType.System
                     });
@@ -274,7 +301,6 @@ namespace ReforgedEdenMKII
                 {
                     if (ix == 0)
                     {
-
                         var WT = WarpTasks.Where(w => w.EntityId == entityId).FirstOrDefault();
                         var tpf = WT.Playfield == "Decay to Andromeda Warp Gate" ? PFD2A : PFA2D;
                         if (tpf == null)
