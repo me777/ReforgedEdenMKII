@@ -52,22 +52,22 @@ namespace ReforgedEdenMKII
         }
         private void Check(IPlayfield P)
         {
-            Vector3 Pos = new Vector3();
+            
 #if DEBUG
             GameAPI.Log($"Check {P.Name}");
 #endif
+            Vector3 Pos = new Vector3();
             var WG = P.Entities.Values.Where(E => E.IsPoi && E.Name == "Ancient Warp Gate").Single();
 #if DEBUG
             GameAPI.Log($"WarpGate found at {WG.Position}");
 #endif
             Pos = WG.Position;
-            foreach (IEntity E in P.Entities.Values.Where(e => e.Type == EntityType.CV && !e.IsPoi && e.DockedTo == -1))
+            foreach (IEntity E in P.Entities.Values.Where(e => e.Type == EntityType.CV && !e.IsPoi))
             {
-
 #if DEBUG
-                int dt = E.DockedTo;
-                GameAPI.Log($"DockedTo {dt}");
+                    GameAPI.Log($"pilot {E.Structure.Pilot} {(E.Structure.Pilot == null)}");
 #endif
+                if (E.Structure.Pilot == null) continue;
                 int pilotid = E.Structure.Pilot.Id;
                 if (pilotid != 0)
                 {
@@ -79,7 +79,7 @@ namespace ReforgedEdenMKII
 #if DEBUG
                     GameAPI.Log($"dist {distance}");
 #endif
-                    if (distance < 100)
+                    if (distance < 500)
                     {
 #if DEBUG
                         GameAPI.Log($"distance of {E.Name} < 100");
