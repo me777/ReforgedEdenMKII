@@ -61,13 +61,18 @@ namespace ReforgedEdenMKII
             GameAPI.Log($"WarpGate found at {WG.Position}");
 #endif
             Pos = WG.Position;
-            foreach (IEntity E in P.Entities.Values.Where(e => e.Type == EntityType.CV && !e.IsPoi))
+            foreach (IEntity E in P.Entities.Values.Where(e => e.Type == EntityType.CV && !e.IsPoi&& e.DockedTo==-1))
             {
+
+#if DEBUG
+                int dt = E.DockedTo;
+                GameAPI.Log($"DockedTo {dt}");
+#endif
                 int pilotid = E.Structure.Pilot.Id;
                 if (pilotid != 0)
                 {
 #if DEBUG
-                    GameAPI.Log($"Entity {E.Name} E.s");
+                    GameAPI.Log($"Entity {E.Name}");
 #endif
                     //GameAPI.Log($"WarpGate {WarpGateA.Position}");
                     float distance = (E.Position - WG.Position).magnitude;
@@ -82,9 +87,6 @@ namespace ReforgedEdenMKII
                         if (E.Structure.Pilot != null)
                         {
                             var pid = E.Structure.Pilot.Id;
-#if DEBUG
-                            GameAPI.Log($"delay {delay[E.Structure.Pilot.Id]}");
-#endif
                             long now = DateTime.Now.Ticks;
                             long value;
                             if (!delay.TryGetValue(pid, out value))
@@ -93,6 +95,9 @@ namespace ReforgedEdenMKII
                                 delay.Add(pid, now);
                                 return;
                             }
+#if DEBUG
+                            GameAPI.Log($"delay {delay[pid]}");
+#endif
                             if (value < now - 100000000)
                             {
                                 delay[pid] = now;
