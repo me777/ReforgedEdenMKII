@@ -61,7 +61,7 @@ namespace ReforgedEdenMKII
             GameAPI.Log($"WarpGate found at {WG.Position}");
 #endif
             Pos = WG.Position;
-            foreach (IEntity E in P.Entities.Values.Where(e => e.Type == EntityType.CV && !e.IsPoi&& e.DockedTo==-1))
+            foreach (IEntity E in P.Entities.Values.Where(e => e.Type == EntityType.CV && !e.IsPoi && e.DockedTo == -1))
             {
 
 #if DEBUG
