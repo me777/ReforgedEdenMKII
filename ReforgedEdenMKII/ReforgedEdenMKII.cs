@@ -79,7 +79,7 @@ namespace ReforgedEdenMKII
 #if DEBUG
                     GameAPI.Log($"dist {distance}");
 #endif
-                    if (distance < 500)
+                    if (distance < 150)
                     {
 #if DEBUG
                         GameAPI.Log($"distance of {E.Name} < 100");
